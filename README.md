@@ -26,7 +26,7 @@ Selected important features:
 
 ![Features](https://i.imgur.com/YD5TK4I.png)
 
-We can see from the feature importance graphs above that exact ranking of feature importance changes as we remove features. While there is some discrepancy, the relative feature importances are **generally** similar to before, and R2 scores improve considerably.
+We can see from the feature importance graphs above that exact ranking of feature importance changes as we remove features. While there is some discrepancy, the relative feature importances are **generally** similar to before, and accuracy improves considerably.
 
 *Education level, usual number of hours worked per week, occupation, value of home, bachelor's degree major, age, sex, and travel time to work.*
 
@@ -38,30 +38,30 @@ The dataset was undersampled using "Near Miss" undersampling.
 ![After](https://i.imgur.com/iMPgJ1M.png)
 
 
-However, R2 scores plummeted with Near Miss balanced data input to the models. The minority class is about 1/2 the size of the majority class, so the imbalance isn't as extreme as it could be. Another attempt at correcting class imbalance was passing the parameter `class_weight='balanced'` to each model, with varying results. Balancing the classes in this way greatly improved the r2 score of the logistic regression model*, but passing the parameter in the same way to Random Forest actually *decreased* the r2 score slightly.
+However, accuracy plummeted with Near Miss balanced data input to the models. The minority class is about 1/2 the size of the majority class, so the imbalance isn't as extreme as it could be. Another attempt at correcting class imbalance was passing the parameter `class_weight='balanced'` to each model, with varying results. Balancing the classes in this way greatly improved the accuracy of the logistic regression model*, but passing the parameter in the same way to Random Forest actually *decreased* the accuracy slightly.
 
-\*Note - `class_weight='balanced'` was inconsistent - sometimes it improved the r2 for Logistic Regression, other times it decimated it... not sure why this was happening.
+\*Note - `class_weight='balanced'` was inconsistent - sometimes it improved the accuracy for Logistic Regression, other times it decimated it... not sure why this was happening.
 
 ---
 
-I also had mixed results with standardization using sklearn's `StandardScaler()`. In preliminary testing, it made R2 scores worse. But in my final model tests, it improved the Linear Regression score from 66% to 82% (wow!) I was unable to use it on KNN in time, though. The scaled features took longer on every model they were used in, but with KNN the time was too much.
+I also had mixed results with standardization using sklearn's `StandardScaler()`. In preliminary testing, it made accuracy scores worse. But in my final model tests, it improved the Linear Regression score from 66% to 82% (wow!) I was unable to use it on KNN in time, though. The scaled features took longer on every model they were used in, but with KNN the time was too much.
 
 ### Results: <br>
 
-The Random Forest model got the best results - R2 values of 97.55% train, 81.40% test. Precision = 72.72% and recall = 67.17%. The ROC curve looks smooth instead of "stepped" - possibly due to the large amount of observations in the data.
+The Random Forest model got the best results - accuracy of 97.55% train, 81.40% test. Precision = 72.72% and recall = 67.17%. The ROC curve looks smooth instead of "stepped" - possibly due to the large amount of observations in the data.
 
 ![ROC](https://i.imgur.com/t4Uo337.png)
 
-Extra Trees Classifier got very similar results because it's based on the same decision tree algorithm as random forest. R2 values of 97.55% train, 80.64% test. Precision = 71.25% and recall = 66.41%.
+Extra Trees Classifier got very similar results because it's based on the same decision tree algorithm as random forest. Accuracy of 97.55% train, 80.64% test. Precision = 71.25% and recall = 66.41%.
 
 ![ROC](https://i.imgur.com/Pzsaab3.png)
 
-Logistic Regression gets the title of Most Improved! Before scaling: After scaling: R2 values of 97.55% train, 80.64% test. Precision = 71.25% and recall = 66.41%.
+Logistic Regression gets the title of Most Improved! Before scaling: After scaling: Accuracy of 97.55% train, 80.64% test. Precision = 71.25% and recall = 66.41%.
 
 ![ROC](https://i.imgur.com/5iUJW1m.png)
 The curve has the "steps" because this plot was generated from the sample dataset with less observations (50,000 vs 1,800,000. The plot for the full set was not ready by the deadline)
 
-K Nearest Neighbors came in last place with R2 scores of 96.50% train, 74.61% test. Precision = 84.93% and recall = 74.95%. The ROC curve has a pointy shape - something to do with how the algorithm works?
+K Nearest Neighbors came in last place with accuracy of 96.50% train, 74.61% test. Precision = 84.93% and recall = 74.95%. The ROC curve has a pointy shape - something to do with how the algorithm works?
 
 ![ROC](https://i.imgur.com/xrPOWLL.png)
 
@@ -75,3 +75,5 @@ https://2020census.gov/en/what-is-2020-census.html
 
 #### Dataset:
 Steven Ruggles, Sarah Flood, Ronald Goeken, Josiah Grover, Erin Meyer, Jose Pacas and Matthew Sobek. IPUMS USA: Version 10.0 [dataset]. Minneapolis, MN: IPUMS, 2020. https://doi.org/10.18128/D010.V10.0
+
+
